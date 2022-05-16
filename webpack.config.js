@@ -35,5 +35,13 @@ module.exports = {
         test: /\.ts$/
       }
     ]
+  },
+  // ファイル監視設定
+  watch: true,
+  watchOptions: {
+    // ビルドから200ms経過後に監視開始
+    aggregateTimeout: 200,
+    // 1000msごとに変更点がないかチェック
+    poll: 1000
   }
 };
