@@ -1,0 +1,19 @@
+{
+  "name": "ts-pokedex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bear27kuma/ts-pokedex.git"
+  },
+  "author": "Yuta Okuma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bear27kuma/ts-pokedex/issues"
+  },
+  "homepage": "https://github.com/Bear27kuma/ts-pokedex#readme"
+}
