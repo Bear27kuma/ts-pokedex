@@ -1,6 +1,2 @@
-import World from './world';
-
-const root = document.getElementById('root');
-const world = new World('Hello World');
-
-world.sayHello(root);
+// HTML要素を取得する
+const container: HTMLElement | null = document.getElementById('app');
