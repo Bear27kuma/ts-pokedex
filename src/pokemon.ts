@@ -15,8 +15,8 @@ interface Pokemon {
   types: { type: { name: string; url: string } }[];
 }
 
-// タイプ情報の型定義
-interface Types {
+// 日本語情報の型定義
+interface JapaneseName {
   names: { name: string }[];
 }
 
@@ -31,7 +31,7 @@ interface ResponsePokemon {
 
 // 非同期処理の実行完了後の値を型定義する
 type FetchPokemon = (id: number) => Promise<void | null>;
-type FetchType = (typesUrl: string[]) => Promise<string[] | null>;
+type FetchType = (url: string) => Promise<string | null>;
 
 export default class Pokedex {
   // pokemonsプロパティを定義
@@ -84,20 +84,30 @@ export default class Pokedex {
       types: json.types,
     };
 
+    console.log(responsePokemon);
+
+    // ポケモンの日本語名を取得する
+    const name = await this.getJapaneseName(responsePokemon.species);
+    console.log(name);
+
     // タイプのURLを格納する配列
-    const typesUrl: string[] = [];
+    const typeUrlList: string[] = [];
 
     // レスポンスからタイプの情報を抜き出す
     responsePokemon.types.forEach((types: { type: { url: string } }) => {
       Object.keys(types).forEach((category: string) => {
         if (category === 'type') {
-          typesUrl.push(types[category]['url']);
+          typeUrlList.push(types[category]['url']);
         }
       });
     });
 
     // タイプの日本語名を取得する
-    const types: string[] | null = await this.getJpTypes(typesUrl);
+    const types: Array<string | null> = [];
+    for (const url of typeUrlList) {
+      const typeName = await this.getJapaneseName(url);
+      types.push(typeName);
+    }
     console.log(types);
 
     // const pokemon = await data.json();
@@ -107,40 +117,34 @@ export default class Pokedex {
   };
 
   // タイプの日本語を取得する
-  private getJpTypes: FetchType = async (typesUrl: string[]) => {
-    const jpTypes: string[] = [];
-
-    // ループで各URLをfetchして日本語名を配列にpushする
-    for (const url of typesUrl) {
-      const response: Response | null = await fetch(url)
-        .then((res) => res)
-        .catch((error) => {
-          console.error(error);
-          return null;
-        });
-
-      if (!response) {
+  private getJapaneseName: FetchType = async (url: string) => {
+    // 引数で渡されたURLをfetchして日本語名を取得する
+    const response: Response | null = await fetch(url)
+      .then((res) => res)
+      .catch((error) => {
+        console.error(error);
         return null;
-      }
+      });
 
-      const json: Types | null = await response
-        .json()
-        .then((json: Types) => {
-          console.log(json);
-          return json;
-        })
-        .catch((error) => {
-          console.log(error);
-          return null;
-        });
-
-      if (!json) {
-        return null;
-      }
-
-      jpTypes.push(json.names[0].name);
+    if (!response) {
+      return null;
     }
 
-    return jpTypes;
+    const json: JapaneseName | null = await response
+      .json()
+      .then((json: JapaneseName) => {
+        console.log(json);
+        return json;
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      });
+
+    if (!json) {
+      return null;
+    }
+
+    return json.names[0].name;
   };
 }
