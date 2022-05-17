@@ -49,6 +49,7 @@ interface ResponsePokemon extends PokemonData {
 // 表示用に整形したポケモンデータ
 interface FormattedPokemon extends PokemonData {
   typeList: string[];
+  first_type: string;
 }
 
 // 非同期処理の実行完了後の値を型定義する
@@ -119,13 +120,16 @@ export default class Pokedex implements PokedexData {
       name = japaneseName;
     }
 
+    // タイプの英語名を格納する配列
+    const typeNameList: string[] = [];
     // タイプのURLを格納する配列
     const typeUrlList: string[] = [];
 
     // レスポンスからタイプの情報を抜き出す
-    responsePokemon.types.forEach((types: { type: { url: string } }) => {
+    responsePokemon.types.forEach((types: { type: { name: string; url: string } }) => {
       Object.keys(types).forEach((category: string) => {
         if (category === 'type') {
+          typeNameList.push(types[category]['name']);
           typeUrlList.push(types[category]['url']);
         }
       });
@@ -153,6 +157,7 @@ export default class Pokedex implements PokedexData {
       name: name,
       image: responsePokemon.image,
       typeList: types,
+      first_type: typeNameList[0],
     };
 
     console.log(formattedPokemon);
@@ -197,9 +202,8 @@ export default class Pokedex implements PokedexData {
       typesElement += `<span class="card-types">${type}</span>`;
     });
 
-    // TODO: 一つ目のタイプをクラスとして付与させる
     const card = `
-      <div class="card">
+      <div class="card bg-${pokemon.first_type}">
         <span class="card-id">#${pokemon.id}</span>
         <img class="card-image" src=${pokemon.image} alt=${pokemon.name} />
         <h2 class="card-name">${pokemon.name}</h2>
