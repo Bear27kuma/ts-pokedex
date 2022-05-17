@@ -1,9 +1,12 @@
+import { isNonNullable } from './index';
+
 // PokeAPIのベースURL
 const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
 // Pokedexクラスのためのインターフェース定義
 interface PokedexData {
   pokemons: number;
+  container: HTMLElement;
 }
 
 // PokeAPIで使用するpokemonオブジェクトの型定義
@@ -50,10 +53,12 @@ type FetchJapaneseName = (url: string) => Promise<string | null>;
 export default class Pokedex implements PokedexData {
   // pokemonsプロパティを定義
   pokemons: number;
+  container: HTMLElement;
 
   // constructorで初期化する
-  constructor(pokemons: number) {
+  constructor(pokemons: number, container: HTMLElement) {
     this.pokemons = pokemons;
+    this.container = container;
   }
 
   // 指定した回数ポケモン情報取得のメソッドを実行する
@@ -82,7 +87,6 @@ export default class Pokedex implements PokedexData {
     const json: Pokemon | null = await response
       .json()
       .then((json: Pokemon) => {
-        console.log(json);
         return json;
       })
       .catch((error) => {
@@ -141,6 +145,7 @@ export default class Pokedex implements PokedexData {
     };
 
     console.log(formattedPokemon);
+    this.createPokemonCard(formattedPokemon);
   };
 
   // 日本語情報を取得する
@@ -160,7 +165,6 @@ export default class Pokedex implements PokedexData {
     const json: JapaneseName | null = await response
       .json()
       .then((json: JapaneseName) => {
-        console.log(json);
         return json;
       })
       .catch((error) => {
@@ -174,9 +178,18 @@ export default class Pokedex implements PokedexData {
 
     return json.names[0].name;
   };
-}
 
-// 組み込みユーティリティとジェネリクスを使ってnull判定を行う
-const isNonNullable = <T>(value: T): value is NonNullable<T> => {
-  return !(value === null || value === void 0);
-};
+  // ポケモンを表示させるカードパーツを作成する
+  createPokemonCard = (pokemon: FormattedPokemon) => {
+    const card = `
+      <div class="card">
+        <span class="card-id">#${pokemon.id}</span>
+        <img class="card-image" src=${pokemon.image} alt=${pokemon.name} />
+        <h2 class="card-name">${pokemon.name}</h2>
+        <span class="card-types">${pokemon.type}</span>
+      </div>
+    `;
+
+    this.container.innerHTML += card;
+  };
+}
