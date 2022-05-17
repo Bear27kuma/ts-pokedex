@@ -31,7 +31,7 @@ interface ResponsePokemon {
 
 // 非同期処理の実行完了後の値を型定義する
 type FetchPokemon = (id: number) => Promise<void | null>;
-type FetchType = (url: string) => Promise<string | null>;
+type FetchJapaneseName = (url: string) => Promise<string | null>;
 
 export default class Pokedex {
   // pokemonsプロパティを定義
@@ -42,12 +42,15 @@ export default class Pokedex {
     this.pokemons = pokemons;
   }
 
+  // 指定した回数ポケモン情報取得のメソッドを実行する
   fetchData(): void {
     for (let i = 1; i <= this.pokemons; i++) {
       void this.getPokemon(i);
     }
   }
 
+  // 表示させるためのポケモン情報を取得する
+  // Promise型を定義したので、async/awaitを使ってAPI処理を記述
   private getPokemon: FetchPokemon = async (id: number) => {
     const response: Response | null = await fetch(`${baseUrl}${id}`)
       .then((res) => res)
@@ -60,6 +63,7 @@ export default class Pokedex {
       return null;
     }
 
+    // レスポンスをJSONオブジェクトとしてパースする
     const json: Pokemon | null = await response
       .json()
       .then((json: Pokemon) => {
@@ -75,7 +79,7 @@ export default class Pokedex {
       return null;
     }
 
-    // レスポンスを整形する
+    // JSONオブジェクトを整形する
     const responsePokemon: ResponsePokemon = {
       id: json.id,
       name: json.name,
@@ -83,8 +87,6 @@ export default class Pokedex {
       species: json.species.url,
       types: json.types,
     };
-
-    console.log(responsePokemon);
 
     // ポケモンの日本語名を取得する
     const name = await this.getJapaneseName(responsePokemon.species);
@@ -116,8 +118,8 @@ export default class Pokedex {
     //   .join(', ');
   };
 
-  // タイプの日本語を取得する
-  private getJapaneseName: FetchType = async (url: string) => {
+  // 日本語情報を取得する
+  private getJapaneseName: FetchJapaneseName = async (url: string) => {
     // 引数で渡されたURLをfetchして日本語名を取得する
     const response: Response | null = await fetch(url)
       .then((res) => res)
