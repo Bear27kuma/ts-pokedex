@@ -1,4 +1,6 @@
 // PokeAPIのベースURL
+import * as url from 'url';
+
 const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
 // APIのレスポンスで使用するオブジェクトの型定義
@@ -14,12 +16,13 @@ interface Pokemon {
   };
   types: Array<{
     type: {
+      name: string;
       url: string;
     };
   }>;
 }
 
-// 非同期処理の実行完了後の値を定義する
+// 非同期処理の実行完了後の値を型定義する
 type FetchPokemon = (id: number) => Promise<void | null>;
 
 export default class Pokedex {
@@ -65,7 +68,7 @@ export default class Pokedex {
 
     console.log(json);
 
-    const transformedPokemon = {
+    const responsePokemon = {
       id: json.id,
       name: json.name,
       image: json.sprites.front_default,
@@ -73,9 +76,20 @@ export default class Pokedex {
       types: json.types,
     };
 
-    console.log(transformedPokemon);
+    console.log(responsePokemon);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const typesUrl: string[] = [];
+
+    responsePokemon.types.forEach((types: { type: { url: string } }) => {
+      Object.keys(types).forEach((category: string) => {
+        if (category === 'type') {
+          typesUrl.push(types[category]['url']);
+        }
+      });
+    });
+
+    console.log(typesUrl);
+
     // const pokemon = await data.json();
     // const pokemonType: string = pokemon.types
     //   .map((poke: any) => poke.type.name)
