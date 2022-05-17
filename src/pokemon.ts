@@ -43,11 +43,12 @@ export default class Pokedex {
   }
 
   // 指定した回数ポケモン情報取得のメソッドを実行する
-  fetchData(): void {
+  // 先行して先のIDの処理が走ってしまわないように非同期処理にする
+  fetchData: () => Promise<void> = async () => {
     for (let i = 1; i <= this.pokemons; i++) {
-      void this.getPokemon(i);
+      await this.getPokemon(i);
     }
-  }
+  };
 
   // 表示させるためのポケモン情報を取得する
   // Promise型を定義したので、async/awaitを使ってAPI処理を記述
@@ -110,12 +111,10 @@ export default class Pokedex {
       const typeName = await this.getJapaneseName(url);
       types.push(typeName);
     }
-    console.log(types);
 
-    // const pokemon = await data.json();
-    // const pokemonType: string = pokemon.types
-    //   .map((poke: any) => poke.type.name)
-    //   .join(', ');
+    // タイプを表示用にフォーマットする
+    const formattedType: string = types.map((type: string | null) => type).join(', ');
+    console.log(formattedType);
   };
 
   // 日本語情報を取得する
