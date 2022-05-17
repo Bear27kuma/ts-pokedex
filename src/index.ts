@@ -8,7 +8,7 @@ export const isNonNullable = <T>(value: T): value is NonNullable<T> => {
 
 // HTML要素を取得する
 const container: HTMLElement | null = document.getElementById('app');
-const pokemons = 5;
+const pokemons = 9;
 
 if (isNonNullable(container)) {
   const pokedex = new Pokedex(pokemons, container);

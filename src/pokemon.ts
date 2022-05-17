@@ -31,6 +31,7 @@ interface Pokemon {
 // 日本語情報の型定義
 interface JapaneseName {
   names: { name: string }[];
+  genera: { genus: string }[];
 }
 
 // ベースとなるポケモンデータ型
@@ -48,13 +49,14 @@ interface ResponsePokemon extends PokemonData {
 
 // 表示用に整形したポケモンデータ
 interface FormattedPokemon extends PokemonData {
+  genus: string;
   typeList: string[];
   first_type: string;
 }
 
 // 非同期処理の実行完了後の値を型定義する
 type FetchPokemon = (id: number) => Promise<void | null>;
-type FetchJapaneseName = (url: string) => Promise<string | null>;
+type FetchJapaneseName = (url: string, isName: boolean) => Promise<string | null>;
 
 export default class Pokedex implements PokedexData {
   // pokemonsプロパティを定義
@@ -114,10 +116,17 @@ export default class Pokedex implements PokedexData {
     };
 
     // ポケモンの日本語名を取得する
-    const japaneseName = await this.getJapaneseName(responsePokemon.species);
+    const japaneseName = await this.getJapaneseName(responsePokemon.species, true);
     let name = String();
     if (isNonNullable(japaneseName)) {
       name = japaneseName;
+    }
+
+    // ポケモンの分類を取得する
+    const japaneseGenus = await this.getJapaneseName(responsePokemon.species, false);
+    let genus = String();
+    if (isNonNullable(japaneseGenus)) {
+      genus = japaneseGenus;
     }
 
     // タイプの英語名を格納する配列
@@ -138,7 +147,7 @@ export default class Pokedex implements PokedexData {
     // タイプの日本語名を取得する
     const typeList: Array<string | null> = [];
     for (const url of typeUrlList) {
-      const typeName = await this.getJapaneseName(url);
+      const typeName = await this.getJapaneseName(url, true);
       typeList.push(typeName);
     }
 
@@ -149,13 +158,13 @@ export default class Pokedex implements PokedexData {
         types.push(type);
       }
     });
-    // const formattedType: string = types.map((type: string | null) => type).join(', ');
 
     // 表示用のデータを整形する
     const formattedPokemon: FormattedPokemon = {
       id: responsePokemon.id,
       name: name,
       image: responsePokemon.image,
+      genus: genus,
       typeList: types,
       first_type: typeNameList[0],
     };
@@ -165,7 +174,7 @@ export default class Pokedex implements PokedexData {
   };
 
   // 日本語情報を取得する
-  private getJapaneseName: FetchJapaneseName = async (url: string) => {
+  private getJapaneseName: FetchJapaneseName = async (url: string, isName: boolean) => {
     // 引数で渡されたURLをfetchして日本語名を取得する
     const response: Response | null = await fetch(url)
       .then((res) => res)
@@ -192,7 +201,11 @@ export default class Pokedex implements PokedexData {
       return null;
     }
 
-    return json.names[0].name;
+    if (isName) {
+      return json.names[0].name;
+    } else {
+      return json.genera[0].genus;
+    }
   };
 
   // ポケモンを表示させるカードパーツを作成する
@@ -207,6 +220,7 @@ export default class Pokedex implements PokedexData {
         <span class="card-id">#${pokemon.id}</span>
         <img class="card-image" src=${pokemon.image} alt=${pokemon.name} />
         <h2 class="card-name">${pokemon.name}</h2>
+        <h3 class="card-genus">${pokemon.genus}</h3>
         ${typesElement}
       </div>
     `;
