@@ -15,6 +15,11 @@ interface Pokemon {
   name: string;
   sprites: {
     front_default: string;
+    other: {
+      'official-artwork': {
+        front_default: string;
+      };
+    };
   };
   type: string;
   species: {
@@ -43,7 +48,7 @@ interface ResponsePokemon extends PokemonData {
 
 // 表示用に整形したポケモンデータ
 interface FormattedPokemon extends PokemonData {
-  type: string;
+  typeList: string[];
 }
 
 // 非同期処理の実行完了後の値を型定義する
@@ -102,7 +107,7 @@ export default class Pokedex implements PokedexData {
     const responsePokemon: ResponsePokemon = {
       id: json.id,
       name: json.name,
-      image: json.sprites.front_default,
+      image: json.sprites.other['official-artwork'].front_default,
       species: json.species.url,
       types: json.types,
     };
@@ -127,21 +132,27 @@ export default class Pokedex implements PokedexData {
     });
 
     // タイプの日本語名を取得する
-    const types: Array<string | null> = [];
+    const typeList: Array<string | null> = [];
     for (const url of typeUrlList) {
       const typeName = await this.getJapaneseName(url);
-      types.push(typeName);
+      typeList.push(typeName);
     }
 
-    // タイプを表示用にフォーマットする
-    const formattedType: string = types.map((type: string | null) => type).join(', ');
+    // タイプの配列の値を表示用にnull判定する
+    const types: string[] = [];
+    typeList.forEach((type: string | null) => {
+      if (isNonNullable(type)) {
+        types.push(type);
+      }
+    });
+    // const formattedType: string = types.map((type: string | null) => type).join(', ');
 
     // 表示用のデータを整形する
     const formattedPokemon: FormattedPokemon = {
       id: responsePokemon.id,
       name: name,
       image: responsePokemon.image,
-      type: formattedType,
+      typeList: types,
     };
 
     console.log(formattedPokemon);
@@ -181,12 +192,18 @@ export default class Pokedex implements PokedexData {
 
   // ポケモンを表示させるカードパーツを作成する
   createPokemonCard = (pokemon: FormattedPokemon) => {
+    let typesElement = String();
+    pokemon.typeList.forEach((type: string) => {
+      typesElement += `<span class="card-types">${type}</span>`;
+    });
+
+    // TODO: 一つ目のタイプをクラスとして付与させる
     const card = `
       <div class="card">
         <span class="card-id">#${pokemon.id}</span>
         <img class="card-image" src=${pokemon.image} alt=${pokemon.name} />
         <h2 class="card-name">${pokemon.name}</h2>
-        <span class="card-types">${pokemon.type}</span>
+        ${typesElement}
       </div>
     `;
 
