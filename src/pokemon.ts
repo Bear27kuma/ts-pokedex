@@ -1,6 +1,11 @@
 // PokeAPIのベースURL
 const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
+// Pokedexクラスのためのインターフェース定義
+interface PokedexData {
+  pokemons: number;
+}
+
 // PokeAPIで使用するpokemonオブジェクトの型定義
 interface Pokemon {
   id: number;
@@ -20,20 +25,29 @@ interface JapaneseName {
   names: { name: string }[];
 }
 
-// レスポンスを整形したオブジェクトの型定義
-interface ResponsePokemon {
+// ベースとなるポケモンデータ型
+interface PokemonData {
   id: number;
   name: string;
   image: string;
+}
+
+// レスポンスを整形したオブジェクトの型定義
+interface ResponsePokemon extends PokemonData {
   species: string;
   types: { type: { name: string; url: string } }[];
+}
+
+// 表示用に整形したポケモンデータ
+interface FormattedPokemon extends PokemonData {
+  type: string;
 }
 
 // 非同期処理の実行完了後の値を型定義する
 type FetchPokemon = (id: number) => Promise<void | null>;
 type FetchJapaneseName = (url: string) => Promise<string | null>;
 
-export default class Pokedex {
+export default class Pokedex implements PokedexData {
   // pokemonsプロパティを定義
   pokemons: number;
 
