@@ -104,8 +104,11 @@ export default class Pokedex implements PokedexData {
     };
 
     // ポケモンの日本語名を取得する
-    const name = await this.getJapaneseName(responsePokemon.species);
-    console.log(name);
+    const japaneseName = await this.getJapaneseName(responsePokemon.species);
+    let name = String();
+    if (isNonNullable(japaneseName)) {
+      name = japaneseName;
+    }
 
     // タイプのURLを格納する配列
     const typeUrlList: string[] = [];
@@ -128,7 +131,16 @@ export default class Pokedex implements PokedexData {
 
     // タイプを表示用にフォーマットする
     const formattedType: string = types.map((type: string | null) => type).join(', ');
-    console.log(formattedType);
+
+    // 表示用のデータを整形する
+    const formattedPokemon: FormattedPokemon = {
+      id: responsePokemon.id,
+      name: name,
+      image: responsePokemon.image,
+      type: formattedType,
+    };
+
+    console.log(formattedPokemon);
   };
 
   // 日本語情報を取得する
@@ -137,7 +149,7 @@ export default class Pokedex implements PokedexData {
     const response: Response | null = await fetch(url)
       .then((res) => res)
       .catch((error) => {
-        console.error(error);
+        console.log(error);
         return null;
       });
 
@@ -163,3 +175,8 @@ export default class Pokedex implements PokedexData {
     return json.names[0].name;
   };
 }
+
+// 組み込みユーティリティとジェネリクスを使ってnull判定を行う
+const isNonNullable = <T>(value: T): value is NonNullable<T> => {
+  return !(value === null || value === void 0);
+};
