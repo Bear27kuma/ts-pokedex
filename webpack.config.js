@@ -9,6 +9,7 @@ module.exports = {
   // モジュールバンドルを行なった結果を出力するファイル名を指定
   output: {
     // __dirnameはファイルが存在するディレクトリ
+    // eslint-disable-next-line no-undef
     path: path.join(__dirname, 'dist'),
     // [name]はentryで記述した名前
     filename: '[name].js'
@@ -21,6 +22,7 @@ module.exports = {
   devServer: {
     static: {
       // webpack-dev-serverの公開設定
+      // eslint-disable-next-line no-undef
       directory: path.join(__dirname, 'dist')
     },
     // サーバー起動時にブラウザを開く
@@ -35,13 +37,5 @@ module.exports = {
         test: /\.ts$/
       }
     ]
-  },
-  // ファイル監視設定
-  watch: true,
-  watchOptions: {
-    // ビルドから200ms経過後に監視開始
-    aggregateTimeout: 200,
-    // 1000msごとに変更点がないかチェック
-    poll: 1000
   }
 };
