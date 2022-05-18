@@ -1,3 +1,6 @@
+// スタイルシート（Sass）を読み込む
+import './styles.scss';
+
 // Pokedexクラスをインポートする
 import Pokedex from './pokemon';
 
