@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en" data-theme="cupcake">
 <head>
-  <meta charset='UTF-8'>
-  <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
-  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Daisy UI読み込み-->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.0/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <title>TS Pokédex</title>
 </head>
 <body>
   <main>
     <h1>TS Pokédex</h1>
-    <div id='app'></div>
+    <div class="container mx-auto">
+      <div id="app" class="flex flex-wrap">
+        <div class="card card-side w-full max-w-xs mx-auto bg-neutral text-white shadow-xl">
+          <div class="card-body p-5 pr-0">
+            <h2 class="card-title">フシギダネ</h2>
+            <h3 class="card-genus">たねポケモン</h3>
+            <div class="card-types flex flex-column">
+              <span>くさ</span>
+              <span>どく</span>
+            </div>
+            <span>#1</span>
+          </div>
+          <figure><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="フシギダネ" class="w-32" /></figure>
+        </div>
+      </div>
+    </div>
   </main>
-  <script src='bundle.js'></script>
+  <script src="bundle.js"></script>
 </body>
 </html>
