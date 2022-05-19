@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   // モードの設定
   mode: 'development',
@@ -23,7 +24,7 @@ module.exports = {
     static: {
       // webpack-dev-serverの公開設定
       // eslint-disable-next-line no-undef
-      directory: path.join(__dirname, 'dist')
+      directory: path.join(__dirname, './')
     },
     // サーバー起動時にブラウザを開く
     open: true
@@ -33,9 +34,20 @@ module.exports = {
     rules: [
       {
         // 拡張子が.tsのファイルに対してTypeScriptのコンパイラを適用する
-        loader: 'ts-loader',
-        test: /\.ts$/
+        test: /\.ts$/,
+        loader: 'ts-loader'
+      },
+      {
+        // SASSおよびCSSのローダー設定
+        test: /\.(scss|sass|css)$/i,
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
       }
     ]
-  }
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      // 抽出するCSSのファイル名
+      filename: 'styles.css'
+    })
+  ]
 };

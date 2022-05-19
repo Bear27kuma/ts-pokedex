@@ -1,0 +1,151 @@
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+// Font Face
+@font-face {
+  font-family: "PixelMplus-r";
+  src: url("../assets/fonts/PixelMplus12-Regular.ttf");
+}
+
+@font-face {
+  font-family: "PixelMplus-b";
+  src: url("../assets/fonts/PixelMplus12-Bold.ttf");
+}
+
+// Variables
+$pixel-r: 'PixelMplus-r', sans-serif;
+$pixel-b: 'PixelMplus-b', sans-serif;
+$anton:  'Anton', sans-serif;
+
+// Color Variables
+$colors: (
+        normal: #A8A77A,
+        fire: #EE8130,
+        water: #6390F0,
+        electric: #F7D02C,
+        grass: #7AC74C,
+        ice: #96D9D6,
+        fighting: #C22E28,
+        poison: #A33EA1,
+        ground: #E2BF65,
+        flying: #A98FF3,
+        psychic: #F95587,
+        bug: #A6B91A,
+        rock: #B6A136,
+        ghost: #735797,
+        dragon: #6F35FC,
+        dark: #705746,
+        fairy: #D685AD,
+        unknown: #AAA
+);
+
+// Styling
+.page-title {
+  font-family: $pixel-b;
+}
+
+#app {
+  font-family: $pixel-r;
+  .pokemon-id {
+    font-family: $anton;
+  }
+  .pokemon-name {
+    font-family: $pixel-b;
+  }
+}
+
+// カード背景色設定
+/*ノーマルタイプ*/
+.bg-normal {
+  background-color: map-get($colors, normal);
+}
+
+/*ほのおタイプ*/
+.bg-fire {
+  background-color: map-get($colors, fire);
+}
+
+/*みずタイプ*/
+.bg-water {
+  background-color: map-get($colors, water);
+}
+
+/*でんきタイプ*/
+.bg-electric {
+  background-color: map-get($colors, electric);
+}
+
+/*くさタイプ*/
+.bg-grass {
+  background-color: map-get($colors, grass);
+}
+
+/*こおりタイプ*/
+.bg-ice {
+  background-color: map-get($colors, ice);
+}
+
+/*かくとうタイプ*/
+.bg-fighting {
+  background-color: map-get($colors, fighting);
+}
+
+/*どくタイプ*/
+.bg-poison {
+  background-color: map-get($colors, poison);
+}
+
+/*じめんタイプ*/
+.bg-ground {
+  background-color: map-get($colors, ground);
+}
+
+/*ひこうタイプ*/
+.bg-flying {
+  background-color: map-get($colors, flying);
+}
+
+/*エスパータイプ*/
+.bg-psychic {
+  background-color: map-get($colors, psychic);
+}
+
+/*むしタイプ*/
+.bg-bug {
+  background-color: map-get($colors, bug);
+}
+
+/*いわタイプ*/
+.bg-rock {
+  background-color: map-get($colors, rock);
+}
+
+/*ゴーストタイプ、シャドウポケモン*/
+.bg-ghost, .bg-shadow {
+  background-color: map-get($colors, ghost);
+}
+
+/* ドラゴンタイプ */
+.bg-dragon {
+  background-color: map-get($colors, dragon);
+}
+
+/* あくタイプ */
+.bg-dark {
+  background-color: map-get($colors, dark);
+}
+
+/* はがねタイプ */
+.bg-steel {
+  background-color: map-get($colors, steel);
+}
+
+/*フェアリータイプ*/
+.bg-fairy {
+  background-color: map-get($colors, fairy);
+}
+
+/*タイプなし*/
+.bg-unknown {
+  background-color: map-get($colors, unknown);
+}
