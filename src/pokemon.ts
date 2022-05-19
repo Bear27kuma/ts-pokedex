@@ -212,7 +212,7 @@ export default class Pokedex implements PokedexData {
   createPokemonCard = (pokemon: FormattedPokemon) => {
     let typesElement = String();
     pokemon.typeList.forEach((type: string) => {
-      typesElement += `<span>${type}</span>`;
+      typesElement += `<span class="badge badge-base-100 badge-outline bg-transparent">${type}</span>`;
     });
 
     const card = `
@@ -221,7 +221,7 @@ export default class Pokedex implements PokedexData {
           <span>#${pokemon.id}</span>
           <h2 class="card-title">${pokemon.name}</h2>
           <h3 class="card-genus">${pokemon.genus}</h3>
-          <div class="card-types flex flex-column">${typesElement}</div>
+          <div class="card-types flex flex-column gap-x-1">${typesElement}</div>
         </div>
         <figure><img src=${pokemon.image} alt=${pokemon.name} class="w-32" /></figure>
       </div>
