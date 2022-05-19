@@ -217,13 +217,13 @@ export default class Pokedex implements PokedexData {
 
     const card = `
       <div class="card card-side w-full mx-auto bg-neutral text-white shadow-xl bg-${pokemon.first_type}">
-        <div class="card-body p-5">
+        <div class="card-body gap-1 p-5">
           <span>#${pokemon.id}</span>
-          <h2 class="card-title">${pokemon.name}</h2>
-          <h3 class="card-genus">${pokemon.genus}</h3>
-          <div class="card-types flex flex-column gap-x-1">${typesElement}</div>
+          <h2 class="card-title pokemon-name">${pokemon.name}</h2>
+          <p class="text-sm">${pokemon.genus}</p>
+          <div class="flex flex-column gap-x-1">${typesElement}</div>
         </div>
-        <figure><img src=${pokemon.image} alt=${pokemon.name} class="w-32" /></figure>
+        <figure><img src=${pokemon.image} alt=${pokemon.name} class="w-32 pr-5" /></figure>
       </div>
     `;
 

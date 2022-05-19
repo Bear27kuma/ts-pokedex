@@ -13,6 +13,9 @@
 #app {
   font-family: "PixelMplus-r", sans-serif;
 }
+#app .pokemon-name {
+  font-family: "PixelMplus-b", sans-serif;
+}
 
 /*ノーマルタイプ*/
 .bg-normal {

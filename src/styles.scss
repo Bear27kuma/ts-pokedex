@@ -1,3 +1,6 @@
+// Google Fonts
+
+
 // Font Face
 @font-face {
   font-family: "PixelMplus-r";
@@ -37,6 +40,9 @@ $colors: (
 
 #app {
   font-family: $pixel-r;
+  .pokemon-name {
+    font-family: $pixel-b;
+  }
 }
 
 // カード背景色設定
