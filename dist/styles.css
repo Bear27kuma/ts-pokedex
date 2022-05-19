@@ -1,6 +1,10 @@
 /*!**********************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles.scss ***!
   \**********************************************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Anton&display=swap);
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles.scss (1) ***!
+  \**************************************************************************************************************/
 @charset "UTF-8";
 @font-face {
   font-family: "PixelMplus-r";
@@ -10,8 +14,15 @@
   font-family: "PixelMplus-b";
   src: url(df373da6b9b7ae48b416.ttf);
 }
+.page-title {
+  font-family: "PixelMplus-b", sans-serif;
+}
+
 #app {
   font-family: "PixelMplus-r", sans-serif;
+}
+#app .pokemon-id {
+  font-family: "Anton", sans-serif;
 }
 #app .pokemon-name {
   font-family: "PixelMplus-b", sans-serif;

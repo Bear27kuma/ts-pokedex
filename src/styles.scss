@@ -1,5 +1,5 @@
 // Google Fonts
-
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 // Font Face
 @font-face {
@@ -15,6 +15,7 @@
 // Variables
 $pixel-r: 'PixelMplus-r', sans-serif;
 $pixel-b: 'PixelMplus-b', sans-serif;
+$anton:  'Anton', sans-serif;
 
 // Color Variables
 $colors: (
@@ -38,8 +39,16 @@ $colors: (
         unknown: #AAA
 );
 
+// Styling
+.page-title {
+  font-family: $pixel-b;
+}
+
 #app {
   font-family: $pixel-r;
+  .pokemon-id {
+    font-family: $anton;
+  }
   .pokemon-name {
     font-family: $pixel-b;
   }
