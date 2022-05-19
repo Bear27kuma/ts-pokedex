@@ -1,7 +1,80 @@
-$p_color: green;
-$p_bg_color: yellow;
+//背景色の変数設定
 
-p {
-  color: $p_color;
-  background-color: $p_bg_color;
+
+
+/*ノーマルタイプ*/
+.bg-normal {
+  background-color: #A8A77A;
+}
+/*ほのおタイプ*/
+.bg-fire {
+  background-color: #EE8130;
+}
+/*みずタイプ*/
+.bg-water {
+  background-color: #6390F0;
+}
+/*でんきタイプ*/
+.bg-electric {
+  background-color: #F7D02C;
+}
+/*くさタイプ*/
+.bg-grass {
+  background-color: #7AC74C;
+}
+/*こおりタイプ*/
+.bg-ice {
+  background-color: #96D9D6;
+}
+/*かくとうタイプ*/
+.bg-fighting {
+  background-color: #C22E28;
+}
+/*どくタイプ*/
+.bg-poison {
+  background-color: #A33EA1;
+}
+/*じめんタイプ*/
+.bg-ground {
+  background-color: #E2BF65;
+}
+/*ひこうタイプ*/
+.bg-flying {
+  background-color: #A98FF3;
+}
+/*エスパータイプ*/
+.bg-psychic {
+  background-color: #F95587;
+}
+/*むしタイプ*/
+.bg-bug {
+  background-color: #A6B91A;
+}
+/*いわタイプ*/
+.bg-rock {
+  background-color: #B6A136;
+}
+/*ゴーストタイプ、シャドウポケモン*/
+.bg-ghost, .bg-shadow {
+  background-color: #735797;
+}
+/* ドラゴンタイプ */
+.bg-dragon {
+  background-color: #6F35FC;
+}
+/* あくタイプ */
+.bg-dark {
+  background-color: #705746;
+}
+/* はがねタイプ */
+.bg-steel {
+  background-color: #B7B7CE;
+}
+/*フェアリータイプ*/
+.bg-fairy {
+  background-color: #D685AD;
+}
+/*アンノーンタイプ*/
+.bg-unknown {
+  background-color: #AAA;
 }

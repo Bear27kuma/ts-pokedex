@@ -216,7 +216,7 @@ export default class Pokedex implements PokedexData {
     });
 
     const card = `
-      <div class="card card-side w-full max-w-xs mx-auto bg-neutral text-white shadow-xl bg-${pokemon.first_type}">
+      <div class="card card-side w-full mx-auto bg-neutral text-white shadow-xl bg-${pokemon.first_type}">
         <div class="card-body p-5">
           <span>#${pokemon.id}</span>
           <h2 class="card-title">${pokemon.name}</h2>
