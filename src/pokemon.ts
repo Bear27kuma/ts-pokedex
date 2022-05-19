@@ -5,7 +5,6 @@ const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
 // Pokedexクラスのためのインターフェース定義
 interface PokedexData {
-  pokemons: number;
   container: HTMLElement;
 }
 
@@ -59,20 +58,18 @@ type FetchPokemon = (id: number) => Promise<void | null>;
 type FetchJapaneseName = (url: string, isName: boolean) => Promise<string | null>;
 
 export default class Pokedex implements PokedexData {
-  // pokemonsプロパティを定義
-  pokemons: number;
+  // プロパティを定義
   container: HTMLElement;
 
   // constructorで初期化する
-  constructor(pokemons: number, container: HTMLElement) {
-    this.pokemons = pokemons;
+  constructor(container: HTMLElement) {
     this.container = container;
   }
 
   // 指定した回数ポケモン情報取得のメソッドを実行する
   // 先行して先のIDの処理が走ってしまわないように非同期処理にする
-  fetchData: () => Promise<void> = async () => {
-    for (let i = 1; i <= this.pokemons; i++) {
+  fetchData: (firstId: number, lastId: number) => Promise<void> = async (firstId: number, lastId: number) => {
+    for (let i = firstId; i <= lastId; i++) {
       await this.getPokemon(i);
     }
   };
@@ -216,9 +213,9 @@ export default class Pokedex implements PokedexData {
     });
 
     const card = `
-      <div class="card card-side w-full mx-auto bg-neutral text-white shadow-xl bg-${pokemon.first_type}">
-        <div class="card-body gap-1 p-5">
-          <span>#${pokemon.id}</span>
+      <div class="card rounded-none rounded-r-2xl rounded-bl-2xl card-side w-full mx-auto bg-neutral text-white shadow-xl bg-${pokemon.first_type}">
+        <span class="pokemon-id absolute text-4xl text-base-300 opacity-30 z-10">${pokemon.id}</span>
+        <div class="card-body p-5 z-20">
           <h2 class="card-title pokemon-name">${pokemon.name}</h2>
           <p class="text-sm">${pokemon.genus}</p>
           <div class="flex flex-column gap-x-1">${typesElement}</div>
