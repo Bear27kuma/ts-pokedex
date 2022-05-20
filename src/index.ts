@@ -40,14 +40,46 @@ const seventhBtn: Html = document.getElementById('seventh');
 const eighthBtn: Html = document.getElementById('eighth');
 
 // 各世代ごとにfetchDataを実行する関数
-const first = (): Promise<void> => pokedex.fetchData(1, 151);
-const second = (): Promise<void> => pokedex.fetchData(152, 251);
-const third = (): Promise<void> => pokedex.fetchData(252, 386);
-const forth = (): Promise<void> => pokedex.fetchData(387, 493);
-const fifth = (): Promise<void> => pokedex.fetchData(494, 649);
-const sixth = (): Promise<void> => pokedex.fetchData(650, 721);
-const seventh = (): Promise<void> => pokedex.fetchData(722, 807);
-const eighth = (): Promise<void> => pokedex.fetchData(810, 898);
+const first = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(1, 151);
+  overlay.fadeOut();
+};
+const second = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(152, 251);
+  overlay.fadeOut();
+};
+const third = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(252, 386);
+  overlay.fadeOut();
+};
+const forth = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(387, 493);
+  overlay.fadeOut();
+};
+const fifth = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(494, 649);
+  overlay.fadeOut();
+};
+const sixth = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(650, 721);
+  overlay.fadeOut();
+};
+const seventh = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(722, 807);
+  overlay.fadeOut();
+};
+const eighth = async (): Promise<void> => {
+  overlay.fadeIn();
+  await pokedex.fetchData(810, 898);
+  overlay.fadeOut();
+};
 
 // 各世代ごとのボタンをnull判定して関数を実行
 isNonNullable(firstBtn) ? (firstBtn.onclick = first) : console.log('firstBtn error');
