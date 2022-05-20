@@ -1,8 +1,12 @@
-// スタイルシート（Sass）を読み込む
+// スタイルシート（Sass）をインポート
 import './styles.scss';
 
-// Pokedexクラスをインポートする
+// Pokedexクラスをインポート
 import Pokedex from './pokemon';
+
+// jQueryをインポート
+import $ from 'jquery';
+import { Loader } from './loader';
 
 // HTML要素の型定義
 type Html = HTMLElement | null;
@@ -22,6 +26,8 @@ if (isNonNullable(container)) {
 } else {
   console.error('There is some error in getting the HTMLElement.');
 }
+
+const overlay = new Loader($('#overlay'));
 
 // 各世代ごとのボタンを取得する
 const firstBtn: Html = document.getElementById('first');
