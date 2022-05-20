@@ -9,20 +9,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Stylesheet-->
   <link rel="stylesheet" href='dist/styles.css'>
+  <link rel="icon" href="assets/images/favicon.ico">
   <title>TS Pokédex</title>
 </head>
 <body>
+  <div id="overlay">
+    <div class="loader-wrap">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
   <main class="w-screen h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-12">
     <h1 class="page-title text-5xl text-center">TS Pokédex</h1>
     <div class="w-full max-w-md mx-auto flex justify-between gap-x-2 gap-y-4 flex-wrap pt-8 pb-12">
-      <button id="first" class="btn btn-outline btn-info normal-case">1st Gen</button>
-      <button id="second" class="btn btn-outline btn-success normal-case">2nd Gen</button>
-      <button id="third" class="btn btn-outline btn-warning normal-case">3rd Gen</button>
-      <button id="forth" class="btn btn-outline btn-error normal-case">4th Gen</button>
-      <button id="fifth" class="btn btn-outline btn-info normal-case">5th Gen</button>
-      <button id="sixth" class="btn btn-outline btn-success normal-case">6th Gen</button>
-      <button id="seventh" class="btn btn-outline btn-warning normal-case">7th Gen</button>
-      <button id="eighth" class="btn btn-outline btn-error normal-case">8th Gen</button>
+      <button id="first" class="btn btn-outline btn-info normal-case pokedex-btn">1st Gen</button>
+      <button id="second" class="btn btn-outline btn-success normal-case pokedex-btn">2nd Gen</button>
+      <button id="third" class="btn btn-outline btn-warning normal-case pokedex-btn">3rd Gen</button>
+      <button id="forth" class="btn btn-outline btn-error normal-case pokedex-btn">4th Gen</button>
+      <button id="fifth" class="btn btn-outline btn-info normal-case pokedex-btn">5th Gen</button>
+      <button id="sixth" class="btn btn-outline btn-success normal-case pokedex-btn">6th Gen</button>
+      <button id="seventh" class="btn btn-outline btn-warning normal-case pokedex-btn">7th Gen</button>
+      <button id="eighth" class="btn btn-outline btn-error normal-case pokedex-btn">8th Gen</button>
     </div>
     <div class="container mx-auto">
       <div id="app" class="grid gap-4 lg:grid-cols-3 sm:grid-cols-2 px-4 pb-12">

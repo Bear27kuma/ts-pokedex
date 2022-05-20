@@ -69,6 +69,8 @@ export default class Pokedex implements PokedexData {
   // 指定した回数ポケモン情報取得のメソッドを実行する
   // 先行して先のIDの処理が走ってしまわないように非同期処理にする
   fetchData: (firstId: number, lastId: number) => Promise<void> = async (firstId: number, lastId: number) => {
+    // 一旦containerの中身を空にする
+    this.container.innerHTML = '';
     for (let i = firstId; i <= lastId; i++) {
       await this.getPokemon(i);
     }
