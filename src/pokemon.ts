@@ -53,10 +53,11 @@ interface FormattedPokemon extends PokemonData {
   first_type: string;
 }
 
-// 非同期処理の実行完了後の値を型定義する
+// 非同期処理の関数のパラメータと戻り値の型定義をする（呼び出しシグネチャ）
 type FetchPokemon = (id: number) => Promise<void | null>;
 type FetchJapaneseName = (url: string, isName: boolean) => Promise<string | null>;
 
+// PokedexDataを実装して、Pokedexクラスを作成する
 export default class Pokedex implements PokedexData {
   // プロパティを定義
   container: HTMLElement;
