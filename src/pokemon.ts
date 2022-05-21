@@ -3,11 +3,6 @@ import { isNonNullable } from './index';
 // PokeAPIのベースURL
 const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
-// Pokedexクラスのためのインターフェース定義
-interface PokedexData {
-  container: HTMLElement;
-}
-
 // PokeAPIで使用するpokemonオブジェクトの型定義
 interface Pokemon {
   id: number;
@@ -51,6 +46,11 @@ interface FormattedPokemon extends PokemonData {
   genus: string;
   typeList: string[];
   first_type: string;
+}
+
+// Pokedexクラスのためのインターフェース定義
+interface PokedexData {
+  container: HTMLElement;
 }
 
 // 非同期処理の関数のパラメータと戻り値の型定義をする（呼び出しシグネチャ）
@@ -209,7 +209,7 @@ export default class Pokedex implements PokedexData {
   };
 
   // ポケモンを表示させるカードパーツを作成する
-  createPokemonCard = (pokemon: FormattedPokemon) => {
+  private createPokemonCard = (pokemon: FormattedPokemon) => {
     let typesElement = String();
     pokemon.typeList.forEach((type: string) => {
       typesElement += `<span class="badge badge-base-100 badge-outline bg-transparent">${type}</span>`;
