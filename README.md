@@ -87,7 +87,7 @@ Docker Desktop for mac 4.8.1
 
 Webpackを使用したコンパイルとバンドルの流れは以下になります。
 
-![compile_bundle](https://user-images.githubusercontent.com/39920490/169633488-702d3b32-d691-4189-803f-5ea9bd58f51d.png)
+![compile_bundle](https://user-images.githubusercontent.com/39920490/169736949-e25168cf-1b26-4dd9-abe5-2cb499feefb9.png)
 
 ## ESLintとPrettierによるCI環境
 ESLintによるコードの静的検証とPrettierによるコードフォーマットを`git commit`した際に行うよう、huskyとlint-stagedを導入
